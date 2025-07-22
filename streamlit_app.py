@@ -23,46 +23,40 @@ random.shuffle(bg_colors)
 
 # CSS grid dan kartu
 st.markdown("""
-    <style>
-    .grid-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-        gap: 1rem;
-        margin-top: 1rem;
-    }
-    .card {
-        background: #fff;
-        padding: 1rem;
-        border-radius: 14px;
-        text-align: center;
-        box-shadow: 0 6px 24px rgba(0,0,0,0.16);
-        transition: all 0.2s ease-in-out;
-        color: #222;
-    }
-    @media (prefers-color-scheme: dark) {
-        .card {
-            background: #222;
-            color: #eee;
-            box-shadow: 0 6px 24px rgba(0,0,0,0.60);
-        }
-        .card h3, .card p {
-            color: #eee;
-        }
-    }
-    .card:hover {
-        transform: translateY(-6px) scale(1.03);
-        box-shadow: 0 12px 32px rgba(0,0,0,0.22);
-    }
-    }
-    .card h3, .card p {
+<style>
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+.card {
+    background: #fff;
+    padding: 1rem;
+    border-radius: 14px;
+    text-align: center;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.16);
+    transition: all 0.2s ease-in-out;
+    color: #222;
+}
+.card:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.22);
+}
+.card h3, .card p {
     color: #222 !important;
 }
 @media (prefers-color-scheme: dark) {
+    .card {
+        background: #222;
+        color: #eee;
+        box-shadow: 0 6px 24px rgba(0,0,0,0.60);
+    }
     .card h3, .card p {
         color: #eee !important;
     }
 }
-    </style>
+</style>
 """, unsafe_allow_html=True)
 
 # Render
