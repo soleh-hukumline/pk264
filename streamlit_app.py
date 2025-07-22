@@ -2,60 +2,61 @@ import streamlit as st
 import pandas as pd
 
 st.set_page_config(layout="wide")
-st.markdown("<h1 style='font-size: 36px;'>📦 Katalog Ide Angkatan PK-264</h1>", unsafe_allow_html=True)
+st.markdown("<h1>📦 Katalog Nama Angkatan PK-264</h1>", unsafe_allow_html=True)
 
-# Load data
+# Load and clean data
 df = pd.read_csv("Ide Tema dan Nama Angkatan PK-264.csv")
 df.columns = [
     "Timestamp", "Nama Lengkap", "Panggilan",
     "Tema Angkatan", "Nama Angkatan", "Filosofi"
 ]
-df = df.dropna(subset=["Tema Angkatan", "Nama Angkatan"])
+df = df.dropna(subset=["Nama Angkatan", "Tema Angkatan"])
 
-# Styling modern grid
+# CSS Styling
 st.markdown("""
-<style>
-.grid-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-  gap: 1.2rem;
-  margin-top: 2rem;
-}
-.card {
-  background: white;
-  border-radius: 1rem;
-  padding: 1.2rem;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-  transition: all 0.3s ease;
-  text-align: center;
-}
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.08);
-}
-.card h3 {
-  margin: 0;
-  font-size: 1.1rem;
-  font-weight: 600;
-}
-.card p {
-  font-size: 0.9rem;
-  color: #444;
-  margin-top: 0.2rem;
-}
-</style>
+    <style>
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+    .card {
+        background: white;
+        padding: 1rem;
+        border-radius: 12px;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        transition: all 0.2s ease-in-out;
+    }
+    .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+    }
+    .card h3 {
+        margin: 0.5rem 0 0.2rem 0;
+        font-size: 1rem;
+    }
+    .card p {
+        margin: 0;
+        font-size: 0.85rem;
+        color: #666;
+    }
+    </style>
 """, unsafe_allow_html=True)
 
-# Grid layout per angkatan
+# Grid render
 html = '<div class="grid-container">'
 for _, row in df.iterrows():
     nama = row["Nama Angkatan"].strip()
     tema = row["Tema Angkatan"].strip()
+    filosofi = row["Filosofi"].strip().replace('"', '&quot;')
     html += f"""
-    <div class="card">
+    <div class="card" title="{filosofi}">
         <h3>🔥 {nama}</h3>
         <p>{tema}</p>
     </div>
     """
 html += "</div>"
+
 st.markdown(html, unsafe_allow_html=True)
