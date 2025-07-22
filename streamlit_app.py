@@ -5,17 +5,18 @@ import plotly.express as px
 st.set_page_config(layout="wide")
 st.title("📊 Visualisasi Tema Daerah & Nama Angkatan PK-264")
 
-# ✅ Link CSV Google Sheet (GID=0 artinya sheet pertama)
+# ✅ Google Sheet dalam format CSV publik
 sheet_url = "https://docs.google.com/spreadsheets/d/1LtUlhadMhWbaKFR0GVxLP_3tTn9p9FGhVNM4tUNicng/export?format=csv&gid=0"
 
-# 📥 Baca data langsung dari Google Sheet
+# Load data dari Google Sheet
 df = pd.read_csv(sheet_url)
 
-# Rename kolom agar konsisten
+# Ambil kolom yang diperlukan
+df = df[["Tema Angkatan", "Nama Angkatan", "Arti dan filosofi Nama Angkatan"]]
 df.columns = ["Tema Daerah", "Nama Angkatan", "Filosofi"]
 df = df.dropna()
 
-# 🎯 Visualisasi Sunburst
+# Buat Sunburst Chart
 fig = px.sunburst(
     df,
     path=["Tema Daerah", "Nama Angkatan"],
