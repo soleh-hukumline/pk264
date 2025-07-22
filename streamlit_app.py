@@ -61,12 +61,12 @@ for i, (_, row) in enumerate(df.iterrows()):
     nama = row["Nama Angkatan"].strip()
     tema = row["Tema Angkatan"].strip()
     color = color_palette[i % len(color_palette)]
-    html += f'''
-        <div class="card">
-            <h3 style="color: {color}">{nama}</h3>
-            <p>{tema}</p>
-        </div>
-    '''
+    html += (
+        f'<div class="card">'
+        f'<h3 style="color: {color}">🔥 {nama}</h3>'
+        f'<p>{tema}</p>'
+        f'</div>'
+    )
 html += '</div>'
 
 st.markdown(html, unsafe_allow_html=True)
