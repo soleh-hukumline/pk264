@@ -10,21 +10,22 @@ df.columns = [
     "Timestamp", "Nama Lengkap", "Panggilan", "Tema Angkatan",
     "Nama Angkatan", "Filosofi"
 ]
-df = df.dropna(subset=["Nama Angkatan", "Filosofi", "Tema Angkatan"])
+df = df.dropna(subset=["Nama Angkatan", "Tema Angkatan"])
 
 # CSS layout grid
 st.markdown("""
     <style>
     .card {
-        background-color: #f9f9f9;
+        background-color: #f0f2f6;
         padding: 1rem;
         border-radius: 12px;
-        box-shadow: 1px 1px 4px rgba(0,0,0,0.05);
+        box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
         font-size: 0.9rem;
+        height: 100%;
     }
     .grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 1rem;
         margin-bottom: 2rem;
     }
@@ -35,11 +36,10 @@ st.markdown("""
 for nama_angkatan, group in df.groupby("Nama Angkatan"):
     st.markdown(f"### 🏷️ {nama_angkatan}")
     html = '<div class="grid">'
-    for _, row in group.iterrows():
+    for tema in group["Tema Angkatan"].unique():
         html += f"""
         <div class="card">
-            <i><u>{row['Tema Angkatan']}</u></i><br>
-            <small>{row['Filosofi']}</small>
+            📍 {tema}
         </div>
         """
     html += "</div>"
