@@ -50,12 +50,12 @@ html = '<div class="grid-container">'
 for _, row in df.iterrows():
     nama = row["Nama Angkatan"].strip()
     tema = row["Tema Angkatan"].strip()
-    html += f"""
-    <div class="card">
-        <h3>🔥 {nama}</h3>
-        <p>{tema}</p>
-    </div>
-    """
-html += "</div>"
+    html += (
+        f'<div class="card">'
+        f'<h3>🔥 {nama}</h3>'
+        f'<p>{tema}</p>'
+        f'</div>'
+    )
+html += '</div>'
 
 st.markdown(html, unsafe_allow_html=True)
