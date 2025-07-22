@@ -55,18 +55,17 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Grid render
+# Render
 html = '<div class="grid-container">'
 for i, (_, row) in enumerate(df.iterrows()):
     nama = row["Nama Angkatan"].strip()
     tema = row["Tema Angkatan"].strip()
-    color = color_palette[i % len(color_palette)]
-    html += (
-        f'<div class="card">'
-        f'<h3 style="color: {color}">🔥 {nama}</h3>'
-        f'<p>{tema}</p>'
-        f'</div>'
-    )
+    bg = bg_colors[i % len(bg_colors)]
+    html += f'''
+        <div class="card" style="background-color: {bg}">
+            <h3>{nama}</h3>
+            <p>{tema}</p>
+        </div>
+    '''
 html += '</div>'
-
 st.markdown(html, unsafe_allow_html=True)
