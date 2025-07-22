@@ -59,11 +59,13 @@ st.markdown("""
         filter: brightness(0.8) contrast(1.2);
     }
     }
+    st.markdown("""
+    <style>
+    .card h3 {
+        color: #222 !important;  /* pastikan warna teks gelap */
+    }
     </style>
 """, unsafe_allow_html=True)
-
-
-
 
 # Render
 html = '<div class="grid-container">'
@@ -73,7 +75,7 @@ for i, (_, row) in enumerate(df.iterrows()):
     bg = bg_colors[i % len(bg_colors)]
     html += (
         f'<div class="card" style="background-color: {bg};">'
-        f'<h3>{nama}</h3>'
+        f'<h3 style="color: #222;">{nama}</h3>'  # warna teks gelap!
         f'<p>{tema}</p>'
         f'</div>'
     )
