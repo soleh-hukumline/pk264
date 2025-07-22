@@ -54,9 +54,14 @@ st.markdown("""
         box-shadow: 0 12px 32px rgba(0,0,0,0.22);
     }
     }
-    .card h3 {
-        color: #222 !important;  /* pastikan warna teks gelap */
+    .card h3, .card p {
+    color: #222 !important;
+}
+@media (prefers-color-scheme: dark) {
+    .card h3, .card p {
+        color: #eee !important;
     }
+}
     </style>
 """, unsafe_allow_html=True)
 
