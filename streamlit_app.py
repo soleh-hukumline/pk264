@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import random
 
 st.set_page_config(layout="wide")
 st.markdown("<h1>📦 Katalog Nama Angkatan PK-264</h1>", unsafe_allow_html=True)
@@ -11,6 +12,14 @@ df.columns = [
     "Tema Angkatan", "Nama Angkatan", "Filosofi"
 ]
 df = df.dropna(subset=["Nama Angkatan", "Tema Angkatan"])
+
+# Warna acak untuk tiap nama (dari palet)
+color_palette = [
+    "#1f77b4", "#ff7f0e", "#2ca02c", "#d62728",
+    "#9467bd", "#8c564b", "#e377c2", "#7f7f7f",
+    "#bcbd22", "#17becf"
+]
+random.shuffle(color_palette)  # biar dinamis
 
 # CSS Styling
 st.markdown("""
@@ -36,6 +45,7 @@ st.markdown("""
     .card h3 {
         margin: 0.5rem 0 0.2rem 0;
         font-size: 1rem;
+        font-weight: 700;
     }
     .card p {
         margin: 0;
@@ -47,15 +57,16 @@ st.markdown("""
 
 # Grid render
 html = '<div class="grid-container">'
-for _, row in df.iterrows():
+for i, (_, row) in enumerate(df.iterrows()):
     nama = row["Nama Angkatan"].strip()
     tema = row["Tema Angkatan"].strip()
-    html += (
-        f'<div class="card">'
-        f'<h3>🔥 {nama}</h3>'
-        f'<p>{tema}</p>'
-        f'</div>'
-    )
+    color = color_palette[i % len(color_palette)]
+    html += f'''
+        <div class="card">
+            <h3 style="color: {color}">{nama}</h3>
+            <p>{tema}</p>
+        </div>
+    '''
 html += '</div>'
 
 st.markdown(html, unsafe_allow_html=True)
