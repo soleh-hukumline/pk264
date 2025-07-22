@@ -59,8 +59,6 @@ st.markdown("""
         filter: brightness(0.8) contrast(1.2);
     }
     }
-    st.markdown("""
-    <style>
     .card h3 {
         color: #222 !important;  /* pastikan warna teks gelap */
     }
