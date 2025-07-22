@@ -31,26 +31,26 @@ st.markdown("""
         margin-top: 1rem;
     }
     .card {
+        background: white;
         padding: 1rem;
-        border-radius: 12px;
+        border-radius: 14px;
         text-align: center;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        box-shadow: 0 6px 24px rgba(0,0,0,0.16); /* SHADOW LEBIH TEBAL */
         transition: all 0.2s ease-in-out;
     }
     .card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+        transform: translateY(-6px) scale(1.03);
+        box-shadow: 0 12px 32px rgba(0,0,0,0.22); /* SHADOW LEBIH TEBAL SAAT HOVER */
     }
     .card h3 {
         margin: 0.5rem 0 0.2rem 0;
-        font-size: 1rem;
-        font-weight: 700;
-        color: #333;
+        font-size: 1.1rem;
+        font-weight: 600;
     }
     .card p {
         margin: 0;
-        font-size: 0.85rem;
-        color: #555;
+        font-size: 0.92rem;
+        color: #444;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -61,11 +61,11 @@ for i, (_, row) in enumerate(df.iterrows()):
     nama = row["Nama Angkatan"].strip()
     tema = row["Tema Angkatan"].strip()
     bg = bg_colors[i % len(bg_colors)]
-    html += f'''
-        <div class="card" style="background-color: {bg}">
-            <h3>{nama}</h3>
-            <p>{tema}</p>
-        </div>
-    '''
+    html += (
+        f'<div class="card" style="background-color: {bg};">'
+        f'<h3>{nama}</h3>'
+        f'<p>{tema}</p>'
+        f'</div>'
+    )
 html += '</div>'
 st.markdown(html, unsafe_allow_html=True)
