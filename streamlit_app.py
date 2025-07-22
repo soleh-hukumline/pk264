@@ -38,7 +38,6 @@ for nama_angkatan, group in df.groupby("Nama Angkatan"):
     for _, row in group.iterrows():
         html += f"""
         <div class="card">
-            <b>{row['Nama Lengkap']} ({row['Panggilan']})</b><br>
             <i><u>{row['Tema Angkatan']}</u></i><br>
             <small>{row['Filosofi']}</small>
         </div>
