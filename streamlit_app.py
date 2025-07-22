@@ -4,7 +4,7 @@ import pandas as pd
 st.set_page_config(layout="wide")
 st.title("📦 Katalog Nama Angkatan PK-264")
 
-# Baca file CSV
+# Load dan bersihkan data
 df = pd.read_csv("Ide Tema dan Nama Angkatan PK-264.csv")
 df.columns = [
     "Timestamp", "Nama Lengkap", "Panggilan",
@@ -12,30 +12,32 @@ df.columns = [
 ]
 df = df.dropna(subset=["Tema Angkatan", "Nama Angkatan"])
 
-# CSS untuk tampilan grid
+# CSS grid responsive
 st.markdown("""
 <style>
 .card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
     margin-bottom: 2rem;
 }
 .card {
-    background-color: #ffffff;
-    border-radius: 14px;
+    background-color: #fff;
+    border-radius: 12px;
     padding: 1rem;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    width: 230px;
     text-align: center;
     font-family: sans-serif;
-    transition: transform 0.1s ease-in-out;
+    transition: transform 0.2s ease;
 }
 .card:hover {
-    transform: scale(1.02);
+    transform: translateY(-3px);
 }
 .card h4 {
     margin: 0.2rem 0;
     font-size: 1.1rem;
+    font-weight: 600;
 }
 .card small {
     color: #555;
@@ -49,13 +51,15 @@ grouped = df.groupby("Tema Angkatan")
 
 for tema, group in grouped:
     st.markdown(f"### 📍 {tema}")
-    html = '<div class="card-grid">'
+    
+    html_block = '<div class="card-grid">'
     for _, row in group.iterrows():
-        html += f"""
+        nama = row['Nama Angkatan'].strip()
+        html_block += f"""
         <div class="card">
-            <h4>🔥 {row['Nama Angkatan']}</h4>
+            <h4>🔥 {nama}</h4>
             <small>{tema}</small>
         </div>
         """
-    html += "</div>"
-    st.markdown(html, unsafe_allow_html=True)
+    html_block += '</div>'
+    st.markdown(html_block, unsafe_allow_html=True)
