@@ -31,29 +31,39 @@ st.markdown("""
         margin-top: 1rem;
     }
     .card {
-        background: white;
+        background: #fff;
         padding: 1rem;
         border-radius: 14px;
         text-align: center;
-        box-shadow: 0 6px 24px rgba(0,0,0,0.16); /* SHADOW LEBIH TEBAL */
+        box-shadow: 0 6px 24px rgba(0,0,0,0.16);
         transition: all 0.2s ease-in-out;
+        color: #222;
+    }
+    @media (prefers-color-scheme: dark) {
+        .card {
+            background: #222;
+            color: #eee;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.60);
+        }
+        .card h3, .card p {
+            color: #eee;
+        }
     }
     .card:hover {
         transform: translateY(-6px) scale(1.03);
-        box-shadow: 0 12px 32px rgba(0,0,0,0.22); /* SHADOW LEBIH TEBAL SAAT HOVER */
+        box-shadow: 0 12px 32px rgba(0,0,0,0.22);
     }
-    .card h3 {
-        margin: 0.5rem 0 0.2rem 0;
-        font-size: 1.1rem;
-        font-weight: 600;
+    @media (prefers-color-scheme: dark) {
+    .card {
+        /* Bisa tambahkan filter untuk redupkan warna */
+        filter: brightness(0.8) contrast(1.2);
     }
-    .card p {
-        margin: 0;
-        font-size: 0.92rem;
-        color: #444;
     }
     </style>
 """, unsafe_allow_html=True)
+
+
+
 
 # Render
 html = '<div class="grid-container">'
