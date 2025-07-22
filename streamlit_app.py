@@ -53,11 +53,6 @@ st.markdown("""
         transform: translateY(-6px) scale(1.03);
         box-shadow: 0 12px 32px rgba(0,0,0,0.22);
     }
-    @media (prefers-color-scheme: dark) {
-    .card {
-        /* Bisa tambahkan filter untuk redupkan warna */
-        filter: brightness(0.8) contrast(1.2);
-    }
     }
     .card h3 {
         color: #222 !important;  /* pastikan warna teks gelap */
