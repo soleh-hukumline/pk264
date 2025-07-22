@@ -35,13 +35,14 @@ st.markdown("""
 }
 .flip-card {
     background-color: transparent;
+    width: 100%;
+    height: 200px;
     perspective: 1000px;
 }
 .flip-card-inner {
     position: relative;
     width: 100%;
-    height: 180px;
-    text-align: center;
+    height: 100%;
     transition: transform 0.6s;
     transform-style: preserve-3d;
 }
@@ -54,27 +55,21 @@ st.markdown("""
     height: 100%;
     backface-visibility: hidden;
     border-radius: 14px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.16);
     padding: 1rem;
-    box-shadow: 0 6px 24px rgba(0,0,0,0.12);
-}
-.flip-card-front {
-    background-color: #ffffff;
-}
-.flip-card-back {
-    background-color: #f0f0f0;
-    transform: rotateY(180deg);
-    font-size: 0.9rem;
-    color: #333;
-}
-.flip-card h3 {
-    margin: 0.5rem 0 0.2rem 0;
-    font-size: 1rem;
+    text-align: center;
     color: #222;
 }
-.flip-card p {
-    margin: 0;
-    font-size: 0.85rem;
-    color: #444;
+.flip-card-front {
+    z-index: 2;
+}
+.flip-card-back {
+    transform: rotateY(180deg);
+    box-shadow: 0 6px 24px rgba(0,0,0,0.16);
+}
+h3, p {
+    margin: 0.5rem 0;
+    font-size: 0.95rem;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -82,9 +77,9 @@ st.markdown("""
 # HTML grid render
 html = '<div class="grid-container">'
 for i, row in df.iterrows():
-    nama = row["Nama Angkatan"].strip()
-    tema = row["Tema Angkatan"].strip()
-    filosofi = row["Filosofi"].strip()
+    nama = str(row["Nama Angkatan"]).strip() if pd.notna(row["Nama Angkatan"]) else "-"
+    tema = str(row["Tema Angkatan"]).strip() if pd.notna(row["Tema Angkatan"]) else "-"
+    filosofi = str(row["Filosofi"]).strip() if pd.notna(row["Filosofi"]) else "-"
     bg = bg_colors[i % len(bg_colors)]
     html += f"""
     <div class="flip-card">
@@ -93,7 +88,7 @@ for i, row in df.iterrows():
                 <h3>🔥 {nama}</h3>
                 <p>{tema}</p>
             </div>
-            <div class="flip-card-back">
+            <div class="flip-card-back" style="background-color: {bg};">
                 <p>{filosofi}</p>
             </div>
         </div>
