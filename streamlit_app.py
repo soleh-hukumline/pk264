@@ -46,16 +46,6 @@ st.markdown("""
 .card h3, .card p {
     color: #222 !important;
 }
-@media (prefers-color-scheme: dark) {
-    .card {
-        background: #222;
-        color: #eee;
-        box-shadow: 0 6px 24px rgba(0,0,0,0.60);
-    }
-    .card h3, .card p {
-        color: #eee !important;
-    }
-}
 </style>
 """, unsafe_allow_html=True)
 
@@ -71,5 +61,10 @@ for i, (_, row) in enumerate(df.iterrows()):
         f'<p>{tema}</p>'
         f'</div>'
     )
-html += '</div>'
+html += (
+    f'<div class="card" style="background-color: {bg};">'
+    f'<h3 style="color: #222;">{nama}</h3>'
+    f'<p style="color: #222;">{tema}</p>'
+    f'</div>'
+)
 st.markdown(html, unsafe_allow_html=True)
