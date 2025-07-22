@@ -5,7 +5,7 @@ import random
 st.set_page_config(layout="wide")
 st.markdown("<h1>📦 Katalog Nama Angkatan PK-264</h1>", unsafe_allow_html=True)
 
-# Load and clean data
+# Load data
 df = pd.read_csv("Ide Tema dan Nama Angkatan PK-264.csv")
 df.columns = [
     "Timestamp", "Nama Lengkap", "Panggilan",
@@ -13,15 +13,15 @@ df.columns = [
 ]
 df = df.dropna(subset=["Nama Angkatan", "Tema Angkatan"])
 
-# Warna acak untuk tiap nama (dari palet)
-color_palette = [
-    "#1f77b4", "#ff7f0e", "#2ca02c", "#d62728",
-    "#9467bd", "#8c564b", "#e377c2", "#7f7f7f",
-    "#bcbd22", "#17becf"
+# Warna latar belakang per card
+bg_colors = [
+    "#FFFAF0", "#F0FFF4", "#F0F8FF", "#FFF5F5", "#F5F5DC",
+    "#FAFAD2", "#F5FFFA", "#FDF5E6", "#F0FFFF", "#FFF0F5",
+    "#E6E6FA", "#FFEFD5", "#F5DEB3", "#E0FFFF", "#FBEFFB"
 ]
-random.shuffle(color_palette)  # biar dinamis
+random.shuffle(bg_colors)
 
-# CSS Styling
+# CSS grid dan kartu
 st.markdown("""
     <style>
     .grid-container {
@@ -31,7 +31,6 @@ st.markdown("""
         margin-top: 1rem;
     }
     .card {
-        background: white;
         padding: 1rem;
         border-radius: 12px;
         text-align: center;
@@ -46,11 +45,12 @@ st.markdown("""
         margin: 0.5rem 0 0.2rem 0;
         font-size: 1rem;
         font-weight: 700;
+        color: #333;
     }
     .card p {
         margin: 0;
         font-size: 0.85rem;
-        color: #666;
+        color: #555;
     }
     </style>
 """, unsafe_allow_html=True)
