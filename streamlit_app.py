@@ -50,9 +50,8 @@ html = '<div class="grid-container">'
 for _, row in df.iterrows():
     nama = row["Nama Angkatan"].strip()
     tema = row["Tema Angkatan"].strip()
-    filosofi = row["Filosofi"].strip().replace('"', '&quot;')
     html += f"""
-    <div class="card" title="{filosofi}">
+    <div class="card">
         <h3>🔥 {nama}</h3>
         <p>{tema}</p>
     </div>
