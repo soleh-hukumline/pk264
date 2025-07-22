@@ -4,7 +4,7 @@ import pandas as pd
 st.set_page_config(layout="wide")
 st.title("📦 Katalog Ide Angkatan PK-264")
 
-# Baca data CSV
+# Baca dan siapkan data
 df = pd.read_csv("Ide Tema dan Nama Angkatan PK-264.csv")
 df.columns = [
     "Timestamp", "Nama Lengkap", "Panggilan", "Tema Angkatan",
@@ -12,32 +12,30 @@ df.columns = [
 ]
 df = df.dropna(subset=["Tema Angkatan", "Nama Angkatan"])
 
-# Kelompokkan berdasarkan Tema Angkatan
-grouped = df.groupby("Tema Angkatan")
-
-# CSS Grid
+# CSS untuk grid layout
 st.markdown("""
 <style>
-.grid {
+.grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1rem;
-    margin-top: 1rem;
+    padding: 0.5rem 0;
 }
 .card {
-    background: #f8f9fa;
+    background-color: #f9f9f9;
+    border-radius: 10px;
     padding: 1rem;
-    border-radius: 12px;
-    box-shadow: 1px 1px 6px rgba(0,0,0,0.05);
-    transition: 0.2s;
-    position: relative;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease;
+    cursor: default;
 }
 .card:hover {
     transform: translateY(-4px);
     box-shadow: 2px 4px 12px rgba(0,0,0,0.1);
 }
-.card h4 {
-    margin-bottom: 0.3rem;
+.card h5 {
+    margin: 0;
+    font-size: 1.1rem;
 }
 .card small {
     color: #666;
@@ -45,17 +43,20 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Tampilkan tiap tema
+# Kelompokkan berdasarkan Tema Angkatan
+grouped = df.groupby("Tema Angkatan")
+
 for tema, subdf in grouped:
     st.markdown(f"### 📍 {tema}")
-    html = '<div class="grid">'
+    html = '<div class="grid-container">'
     for _, row in subdf.iterrows():
-        filosofi = row["Filosofi"].replace('"', "'")  # hindari konflik tag HTML
+        nama = row["Nama Angkatan"]
+        filosofi = row["Filosofi"].replace('"', "'")  # hindari error kutip
         html += f"""
         <div class="card" title="{filosofi}">
-            <h4>🔥 {row['Nama Angkatan']}</h4>
+            <h5>🔥 {nama}</h5>
             <small>{tema}</small>
         </div>
         """
-    html += "</div>"
+    html += '</div>'
     st.markdown(html, unsafe_allow_html=True)
